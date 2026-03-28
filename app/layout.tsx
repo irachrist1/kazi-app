@@ -13,6 +13,10 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   title: "Kazi — Jobs find you.",
   description: "AI-powered employment matching for Rwanda",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
