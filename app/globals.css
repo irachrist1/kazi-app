@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-surface: #fcf9f8;
+  --color-surface-low: #f5f0ee;
+  --color-surface-high: #fdfcfb;
+  --color-text: #1c1b1b;
+  --color-text-muted: #5a5755;
+  --color-primary: #0059bb;
+  --color-primary-light: #0070ea;
+  --color-secondary: #904d00;
+  --color-tertiary: #00685f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+.font-display {
+  font-family: var(--font-newsreader), Georgia, serif;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0059bb, #0070ea);
+  color: white;
+  border-radius: 2px;
+  padding: 0.75rem 1.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateX(0.5rem);
+  box-shadow: 0 4px 20px rgba(0, 89, 187, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid rgba(28, 27, 27, 0.2);
+  border-radius: 2px;
+  padding: 0.75rem 1.75rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(28, 27, 27, 0.04);
+}
+
+.input-field {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(28, 27, 27, 0.25);
+  border-radius: 0;
+  padding: 0.75rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  font-size: 1rem;
+  color: var(--color-text);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease;
+  line-height: 1.6;
+}
+
+.input-field:focus {
+  border-bottom: 2px solid #0059bb;
+}
+
+.input-field::placeholder {
+  color: #a09d9b;
+}
+
+.card-float {
+  background: var(--color-surface-high);
+  box-shadow: 0 10px 40px rgba(28, 27, 27, 0.04), 0 20px 80px rgba(28, 27, 27, 0.06);
+}
+
+/* ── Responsive layout utilities ── */
+.page-pad   { padding: 4rem 8.5rem; }
+.hero-pad   { padding: 5rem 8.5rem 3rem; }
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.grid-detail {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 6rem;
+  align-items: start;
+}
+
+.grid-employer-detail {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 6rem;
+  align-items: start;
+}
+
+.sticky-panel { position: sticky; top: 4rem; }
+
+@media (max-width: 1024px) {
+  .page-pad  { padding: 3rem 4rem; }
+  .hero-pad  { padding: 4rem 4rem 2.5rem; }
+  .grid-detail        { grid-template-columns: 1fr; gap: 2.5rem; }
+  .grid-employer-detail { grid-template-columns: 1fr; gap: 2.5rem; }
+  .sticky-panel { position: static; }
+}
+
+@media (max-width: 768px) {
+  .page-pad  { padding: 2rem 1.5rem; }
+  .hero-pad  { padding: 2.5rem 1.5rem 2rem; }
+  .landing-grid { grid-template-columns: 1fr; min-height: auto; }
+  .landing-grid > div:last-child { padding: 1rem 1.5rem 3rem; }
+  .grid-3col { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; }
+  .grid-detail        { grid-template-columns: 1fr; gap: 2rem; }
+  .grid-employer-detail { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ── Kazi Animation ── */
+.kanim { opacity: 0; pointer-events: none; }
+.kanim.visible { opacity: 1; }
+.kanim.fade-out { opacity: 0 !important; }
+.kanim.dim { opacity: 0.15 !important; transition: opacity 1s ease; }
+
+.kfade { transition: opacity 0.8s ease; }
+.kslide-r { transform: translateX(-20px); transition: all 0.8s ease; }
+.kslide-r.visible { transform: translateX(0); opacity: 1; }
+.kslide-l { transform: translateX(20px); transition: all 0.8s ease; }
+.kslide-l.visible { transform: translateX(0); opacity: 1; }
+
+.kline {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kline.draw { stroke-dashoffset: 0 !important; }
+
+.khighlight-border { stroke: #00685f !important; stroke-width: 2.5px !important; transition: all 0.6s ease; }
+.khighlight-line   { stroke: #00685f !important; stroke-width: 2.5px !important; opacity: 1 !important; transition: all 0.6s ease; }
+.khighlight-text   { fill: #00685f !important; font-weight: bold; transition: all 0.6s ease; }
+
+@keyframes kpulse {
+  0%   { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.kpulse { animation: kpulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
